@@ -84,7 +84,7 @@ void loadKitList(){
 }
 
 void loadKit(){
-  toConsole("Loading Kit: " + kit + "");
+  toConsole("Loading Kit: " + kitList[kit] + "");
   kick  = new Sampler( "samples/" + kitList[kit] + "/kick.wav", 4, minim );
   snare = new Sampler( "samples/" + kitList[kit] + "/snare.wav", 4, minim );
   clap = new Sampler( "samples/" + kitList[kit] + "/clap.wav", 4, minim );
