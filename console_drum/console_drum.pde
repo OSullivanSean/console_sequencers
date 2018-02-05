@@ -69,6 +69,7 @@ void setup()
   minim = new Minim(this);
   out   = minim.getLineOut();
   stringList = new StringList();
+  splash();
   toConsole("\nInitialising...");
 
   loadKitList();
@@ -283,4 +284,16 @@ void toConsole(String string){
   for(int i = 0; i < stringList.size(); i++){
     fakeConsole += "\n" + stringList.get(i);
   }
+}
+  
+void splash(){
+  String str;
+  str = "____ ____ _   _ ____ ____  _    ____       ___  ___ _  _ _  _ ";
+  toConsole(str);
+  str = " |        |    |  |\\   |   [__     |     |  |     |___        |    \\ |__/ |    | | \\ / | ";
+  toConsole(str);
+  str = " |___  |__|  |  \\ |   ___]   |_ _|  |__ |___ ___ |__/ |    \\ |__| |     | ";
+  toConsole(str);
+  toConsole("\n@author Shon");
+  toConsole("@since   01.02.18");
 }
