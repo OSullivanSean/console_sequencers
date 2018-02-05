@@ -16,7 +16,8 @@ Sampler high_tom;
 Sampler hi_hat;
 Sampler cymbal;
 
-String kit;
+int kit;
+String[] kitList;
 
 boolean[] kickRow = new boolean[16];
 boolean[] snareRow = new boolean[16];
@@ -32,6 +33,7 @@ int beat;
 int count = 0;
 
 boolean playing = false;
+boolean started = false;
 
 EditMode editMode = EditMode.KICK;;
 
@@ -42,7 +44,7 @@ class Tick implements Instrument
     if(beat%4 == 0){
       count++;
     }
-    String info = str(count) + " : " + str(beat%4 + 1) + " : " + kit + " : " + editMode;
+    String info = str(count) + " : " + str(beat%4 + 1) + " : " + kitList[kit] + " : " + editMode + " : " + bpm ;
     toConsole(info);
     if ( kickRow[beat] ) kick.trigger();
     if ( snareRow[beat] ) snare.trigger();
@@ -63,33 +65,32 @@ class Tick implements Instrument
 
 void setup()
 {
-  size(200, 1000);
+  size(600, 1000);
   minim = new Minim(this);
   out   = minim.getLineOut();
   stringList = new StringList();
   toConsole("\nInitialising...");
 
-  kit = "808";
+  loadKitList();
+  kit = 0;
   loadKit();
-
   beat = 0;
   
-  while(!playing){
-     toConsole(str(playing));
-  }
-  startSequencer();
-  
+}
+
+void loadKitList(){
+  kitList = loadStrings("kitList.txt");
 }
 
 void loadKit(){
   toConsole("Loading Kit: " + kit + "");
-  kick  = new Sampler( "samples/" + kit + "/kick.wav", 4, minim );
-  snare = new Sampler( "samples/" + kit + "/snare.wav", 4, minim );
-  clap = new Sampler( "samples/" + kit + "/clap.wav", 4, minim );
-  low_tom = new Sampler( "samples/" + kit + "/low_tom.wav", 4, minim );
-  high_tom = new Sampler( "samples/" + kit + "/high_tom.wav", 4, minim );
-  hi_hat   = new Sampler( "samples/" + kit + "/hi_hat.wav", 4, minim );
-  cymbal = new Sampler( "samples/" + kit + "/cymbal.wav", 4, minim );
+  kick  = new Sampler( "samples/" + kitList[kit] + "/kick.wav", 4, minim );
+  snare = new Sampler( "samples/" + kitList[kit] + "/snare.wav", 4, minim );
+  clap = new Sampler( "samples/" + kitList[kit] + "/clap.wav", 4, minim );
+  low_tom = new Sampler( "samples/" + kitList[kit] + "/low_tom.wav", 4, minim );
+  high_tom = new Sampler( "samples/" + kitList[kit] + "/high_tom.wav", 4, minim );
+  hi_hat   = new Sampler( "samples/" + kitList[kit] + "/hi_hat.wav", 4, minim );
+  cymbal = new Sampler( "samples/" + kitList[kit] + "/cymbal.wav", 4, minim );
 
   kick.patch( out );
   snare.patch( out );
@@ -188,12 +189,16 @@ void keyPressed(){
        bpm++;
        break;
        
-     case 'a':
-       kit = "808";
+     case '[':
+       if(kit >0){
+         kit--;
+       }
        loadKit();
        break;
-     case 's':
-       kit = "909";
+     case ']':
+       if(kit < kitList.length-1){
+         kit++;
+       }             
        loadKit();
        break;
        
@@ -203,8 +208,8 @@ void keyPressed(){
        clearNotes();
        break;
        
-     case '#':
-       playing = true;
+     case 'p':
+       started = true;
        break;
    }
 
@@ -214,31 +219,31 @@ void updateSequencer(int step){
   switch(editMode){
     case KICK:
       if(kickRow[step] == true) kickRow[step] = false; else kickRow[step] = true;
-      toConsole(step + ":" + str(kickRow[step]));
+      toConsole(editMode + ":" + str(step+1) + ":" + str(kickRow[step]));
       break;
     case SNARE:
       if(snareRow[step] == true) snareRow[step] = false; else snareRow[step] = true;
-      toConsole(step + ":" + str(snareRow[step]));
+      toConsole(editMode + ":" + str(step+1) + ":" + str(snareRow[step]));
       break;
     case CLAP:
       if(clapRow[step] == true) clapRow[step] = false; else clapRow[step] = true;
-      toConsole(step + ":" + str(clapRow[step]));
+      toConsole(editMode + ":" + str(step+1) + ":" + str(clapRow[step]));
       break;
     case LOW_TOM:
       if(low_tomRow[step] == true) low_tomRow[step] = false; else low_tomRow[step] = true;
-      toConsole(step + ":" + str(low_tomRow[step]));
+      toConsole(editMode + ":" + str(step+1) + ":" + str(low_tomRow[step]));
       break;
     case HIGH_TOM:
       if(high_tomRow[step] == true) high_tomRow[step] = false; else high_tomRow[step] = true;
-      toConsole(step + ":" + str(high_tomRow[step]));
+      toConsole(editMode + ":" + str(step+1) + ":" + str(high_tomRow[step]));
       break;
     case HI_HAT:
       if(hi_hatRow[step] == true) hi_hatRow[step] = false; else hi_hatRow[step] = true;
-      toConsole(step + ":" + str(hi_hatRow[step]));
+      toConsole(editMode + ":" + str(step+1) + ":" + str(hi_hatRow[step]));
       break;
     case CYMBAL:
       if(cymbalRow[step] == true) cymbalRow[step] = false; else cymbalRow[step] = true;
-      toConsole(step + ":" + str(cymbalRow[step]));
+      toConsole(editMode + ":" + str(step+1) + ":" + str(cymbalRow[step]));
       break;
   }
 }
@@ -260,6 +265,10 @@ enum EditMode{
 }
 
 void draw(){
+  if(!playing && started){
+     startSequencer();
+     playing = true;
+  }
   background(0);
   fill(0, 255, 0);
   text(fakeConsole, 20, 20, width-40, height-40);
