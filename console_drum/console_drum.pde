@@ -182,16 +182,20 @@ void keyPressed(){
        break;
        
      case '-':
-       toConsole("(bpm--)");
-       bpm--;
+       if(bpm > 0){
+         bpm--;
+       }
+       toConsole("bpm: " + bpm);
        break;
      case '=':
-       toConsole("(bpm++)");
-       bpm++;
+       if(bpm < 300){
+         bpm++;
+       }
+       toConsole("bpm: " + bpm);
        break;
        
      case '[':
-       if(kit >0){
+       if(kit > 1){
          kit--;
        }
        loadKit();
