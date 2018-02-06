@@ -70,17 +70,20 @@ void setup()
   out   = minim.getLineOut();
   stringList = new StringList();
   splash();
-  toConsole("\nInitialising...");
-
+  toConsole("\nconsole_drum initialising...");
   loadKitList();
   kit = 0;
   loadKit();
   beat = 0;
+  toConsole("console_drum initialised");
+  toConsole("\nPress 'p' to start sequencer\n");
   
 }
 
 void loadKitList(){
+  toConsole("Loading kits from kitList.txt...");
   kitList = loadStrings("kitList.txt");
+  toConsole("Kits Loaded");
 }
 
 void loadKit(){
@@ -195,7 +198,7 @@ void keyPressed(){
        break;
        
      case '[':
-       if(kit > 1){
+       if(kit > 0){
          kit--;
        }
        loadKit();
