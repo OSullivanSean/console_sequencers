@@ -222,6 +222,7 @@ void keyPressed(){
        break;
        
      case 'p':
+       beat = 0;
        if(started){
          started = false;
          playing = false;
