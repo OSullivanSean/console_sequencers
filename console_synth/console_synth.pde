@@ -68,14 +68,17 @@ class Tick implements Instrument
     if ( A_Row[beat] ) {A.stop(); A.trigger();} 
     if ( Bb_Row[beat] ) {Bb.stop(); Bb.trigger();} 
     if ( B_Row[beat] ) {B.stop(); B.trigger();} 
-
   }
   
   void noteOff()
   {
     beat = (beat+1)%16;
     out.setTempo( bpm );
-    out.playNote( 0, 0.25f, this );
+    if(started){
+      out.playNote( 0, 0.25f, this );
+    }else{
+      toConsole("Sequencer Stopped...");
+    }
   }
 }
 
@@ -93,7 +96,6 @@ void setup()
   beat = 0;
   toConsole("console_synth initialised");
   toConsole("\nPress 'p' to start sequencer\n");
-  
 }
 
 void loadSynthList(){
@@ -263,10 +265,14 @@ void keyPressed(){
        break;
        
      case 'p':
-       started = true;
+       if(started){
+         started = false;
+         playing = false;
+       }else{
+         started = true;
+       }
        break;
    }
-
 }
 
 void updateSequencer(int step){

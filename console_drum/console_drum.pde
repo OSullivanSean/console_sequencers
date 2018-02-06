@@ -61,7 +61,11 @@ class Tick implements Instrument
   {
     beat = (beat+1)%16;
     out.setTempo( bpm );
-    out.playNote( 0, 0.25f, this );
+    if(started){
+      out.playNote( 0, 0.25f, this );
+    }else{
+      toConsole("Sequencer Stopped...");
+    }
   }
 }
 
@@ -78,8 +82,7 @@ void setup()
   loadKit();
   beat = 0;
   toConsole("console_drum initialised");
-  toConsole("\nPress 'p' to start sequencer\n");
-  
+  toConsole("\nPress 'p' to start sequencer\n");  
 }
 
 void loadKitList(){
@@ -219,10 +222,14 @@ void keyPressed(){
        break;
        
      case 'p':
-       started = true;
+       if(started){
+         started = false;
+         playing = false;
+       }else{
+         started = true;
+       }
        break;
    }
-
 }
 
 void updateSequencer(int step){
@@ -274,9 +281,7 @@ enum EditMode{
   CLAP, CYMBAL, HI_HAT, HIGH_TOM, KICK, LOW_TOM, SNARE
 }
 
-void draw(){
-  
-  
+void draw(){ 
   if(!playing && started){
      startSequencer();
      playing = true;
