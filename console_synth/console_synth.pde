@@ -56,18 +56,18 @@ class Tick implements Instrument
     }
     String info = str(count) + " : " + str(beat%4 + 1) + " : " + synthList[synth] + " : " + editMode + " : " + bpm ;
     toConsole(info);
-    if ( C_Row[beat] ) C.trigger();
-    if ( Db_Row[beat] ) Db.trigger();
-    if ( D_Row[beat] ) D.trigger();
-    if ( Eb_Row[beat] ) Eb.trigger();
-    if ( E_Row[beat] ) E.trigger();
-    if ( F_Row[beat] ) F.trigger();
-    if ( Gb_Row[beat] ) Gb.trigger();
-    if ( G_Row[beat] ) G.trigger();
-    if ( Ab_Row[beat] ) Ab.trigger();
-    if ( A_Row[beat] ) A.trigger();
-    if ( Bb_Row[beat] ) Bb.trigger();
-    if ( B_Row[beat] ) B.trigger();
+    if ( C_Row[beat] ) {C.stop(); C.trigger();} 
+    if ( Db_Row[beat] ) {Db.stop(); Db.trigger();} 
+    if ( D_Row[beat] ) {D.stop(); D.trigger();} 
+    if ( Eb_Row[beat] ) {Eb.stop(); Eb.trigger();} 
+    if ( E_Row[beat] ) {E.stop(); E.trigger();} 
+    if ( F_Row[beat] ) {F.stop(); F.trigger();} 
+    if ( Gb_Row[beat] ) {Gb.stop(); Gb.trigger();} 
+    if ( G_Row[beat] ) {G.stop(); G.trigger();} 
+    if ( Ab_Row[beat] ) {Ab.stop(); Ab.trigger();} 
+    if ( A_Row[beat] ) {A.stop(); A.trigger();} 
+    if ( Bb_Row[beat] ) {Bb.stop(); Bb.trigger();} 
+    if ( B_Row[beat] ) {B.stop(); B.trigger();} 
 
   }
   
@@ -366,11 +366,11 @@ void toConsole(String string){
   
 void splash(){
   String str;
-  str = "____ ____ _   _ ____ ____  _    ____       ___  ___ _  _ _  _ ";
+  str = "____ ___  _  _ ____ ___  _      ____       ____ _  __   _ __ _   _ ";
+  toConsole(str); 
+  str = " |        |    |   | \\  | [__    |    | |       |___         [__    \\_/  |\\   |   |   |__| ";
   toConsole(str);
-  str = " |        |    |  |\\   |   [__     |     |  |     |___        |    \\ |__/ |    | | \\ / | ";
-  toConsole(str);
-  str = " |___  |__|  |  \\ |   ___]   |_ _|  |__ |___ ___ |__/ |    \\ |__| |     | ";
+  str = " |___  |__|   |   \\| ___]  |__| |___ |___ ___ ___]    |    |   \\|   |   |    | ";
   toConsole(str);
   toConsole("\n@author Shon");
   toConsole("@since   01.02.18");
