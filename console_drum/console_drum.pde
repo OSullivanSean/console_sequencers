@@ -93,13 +93,13 @@ void loadKitList(){
 
 void loadKit(){
   toConsole("Loading Kit: " + kitList[kit] + "");
-  kick  = new Sampler( "samples/" + kitList[kit] + "/kick.wav", 4, minim );
-  snare = new Sampler( "samples/" + kitList[kit] + "/snare.wav", 4, minim );
-  clap = new Sampler( "samples/" + kitList[kit] + "/clap.wav", 4, minim );
-  low_tom = new Sampler( "samples/" + kitList[kit] + "/low_tom.wav", 4, minim );
-  high_tom = new Sampler( "samples/" + kitList[kit] + "/high_tom.wav", 4, minim );
-  hi_hat   = new Sampler( "samples/" + kitList[kit] + "/hi_hat.wav", 4, minim );
-  cymbal = new Sampler( "samples/" + kitList[kit] + "/cymbal.wav", 4, minim );
+  kick  = new Sampler( "samples/" + kitList[kit] + "/kick.mp3", 4, minim );
+  snare = new Sampler( "samples/" + kitList[kit] + "/snare.mp3", 4, minim );
+  clap = new Sampler( "samples/" + kitList[kit] + "/clap.mp3", 4, minim );
+  low_tom = new Sampler( "samples/" + kitList[kit] + "/low_tom.mp3", 4, minim );
+  high_tom = new Sampler( "samples/" + kitList[kit] + "/high_tom.mp3", 4, minim );
+  hi_hat   = new Sampler( "samples/" + kitList[kit] + "/hi_hat.mp3", 4, minim );
+  cymbal = new Sampler( "samples/" + kitList[kit] + "/cymbal.mp3", 4, minim );
 
   kick.patch( out );
   snare.patch( out );
