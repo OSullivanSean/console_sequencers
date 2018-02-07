@@ -45,8 +45,6 @@ int count = 0;
 boolean playing = false;
 boolean started = false;
 
-boolean notePlaying = false;
-
 EditMode editMode = EditMode.C;;
 
 class Tick implements Instrument
@@ -58,22 +56,18 @@ class Tick implements Instrument
     }
     String info = str(count) + " : " + str(beat%4 + 1) + " : " + synthList[synth] + " : " + editMode + " : " + bpm ;
     toConsole(info);
-    if(notePlaying){
-      stopAll();
-      notePlaying = false;
-    }
-    if ( C_Row[beat] ) {C.trigger(); notePlaying = true;} 
-    if ( Db_Row[beat] ) {Db.trigger(); notePlaying = true;} 
-    if ( D_Row[beat] ) {D.trigger(); notePlaying = true;} 
-    if ( Eb_Row[beat] ) {Eb.trigger(); notePlaying = true;} 
-    if ( E_Row[beat] ) {E.trigger(); notePlaying = true;} 
-    if ( F_Row[beat] ) {F.trigger(); notePlaying = true;} 
-    if ( Gb_Row[beat] ) {Gb.trigger(); notePlaying = true;} 
-    if ( G_Row[beat] ) {G.trigger(); notePlaying = true;} 
-    if ( Ab_Row[beat] ) {Ab.trigger(); notePlaying = true;} 
-    if ( A_Row[beat] ) {A.trigger(); notePlaying = true;} 
-    if ( Bb_Row[beat] ) {Bb.trigger(); notePlaying = true;} 
-    if ( B_Row[beat] ) {B.trigger(); notePlaying = true;} 
+    if ( C_Row[beat] ) {C.stop(); C.trigger(); } 
+    if ( Db_Row[beat] ) {Db.stop(); Db.trigger(); } 
+    if ( D_Row[beat] ) {D.stop(); D.trigger(); } 
+    if ( Eb_Row[beat] ) {Eb.stop(); Eb.trigger(); } 
+    if ( E_Row[beat] ) {E.stop(); E.trigger(); } 
+    if ( F_Row[beat] ) {F.stop(); F.trigger(); } 
+    if ( Gb_Row[beat] ) {Gb.stop(); Gb.trigger(); } 
+    if ( G_Row[beat] ) {G.stop(); G.trigger(); } 
+    if ( Ab_Row[beat] ) {Ab.stop(); Ab.trigger(); } 
+    if ( A_Row[beat] ) {A.stop(); A.trigger(); } 
+    if ( Bb_Row[beat] ) {Bb.stop(); Bb.trigger(); } 
+    if ( B_Row[beat] ) {B.stop(); B.trigger(); } 
   }
   
   void stopAll(){
@@ -128,18 +122,18 @@ void loadSynthList(){
 void loadSynth(){
   toConsole("Loading Synth: " + synthList[synth] + "");
   
-  C  = new Sampler( "samples/" + synthList[synth] + "/C.wav", 4, minim );
-  Db  = new Sampler( "samples/" + synthList[synth] + "/Db.wav", 4, minim );
-  D  = new Sampler( "samples/" + synthList[synth] + "/D.wav", 4, minim );
-  Eb  = new Sampler( "samples/" + synthList[synth] + "/Eb.wav", 4, minim );
-  E  = new Sampler( "samples/" + synthList[synth] + "/E.wav", 4, minim );
-  F  = new Sampler( "samples/" + synthList[synth] + "/F.wav", 4, minim );
-  Gb  = new Sampler( "samples/" + synthList[synth] + "/Gb.wav", 4, minim );
-  G  = new Sampler( "samples/" + synthList[synth] + "/G.wav", 4, minim );
-  Ab  = new Sampler( "samples/" + synthList[synth] + "/Ab.wav", 4, minim );
-  A  = new Sampler( "samples/" + synthList[synth] + "/A.wav", 4, minim );
-  Bb  = new Sampler( "samples/" + synthList[synth] + "/Bb.wav", 4, minim );
-  B  = new Sampler( "samples/" + synthList[synth] + "/B.wav", 4, minim );
+  C  = new Sampler( "samples/" + synthList[synth] + "/C.mp3", 4, minim );
+  Db  = new Sampler( "samples/" + synthList[synth] + "/Db.mp3", 4, minim );
+  D  = new Sampler( "samples/" + synthList[synth] + "/D.mp3", 4, minim );
+  Eb  = new Sampler( "samples/" + synthList[synth] + "/Eb.mp3", 4, minim );
+  E  = new Sampler( "samples/" + synthList[synth] + "/E.mp3", 4, minim );
+  F  = new Sampler( "samples/" + synthList[synth] + "/F.mp3", 4, minim );
+  Gb  = new Sampler( "samples/" + synthList[synth] + "/Gb.mp3", 4, minim );
+  G  = new Sampler( "samples/" + synthList[synth] + "/G.mp3", 4, minim );
+  Ab  = new Sampler( "samples/" + synthList[synth] + "/Ab.mp3", 4, minim );
+  A  = new Sampler( "samples/" + synthList[synth] + "/A.mp3", 4, minim );
+  Bb  = new Sampler( "samples/" + synthList[synth] + "/Bb.mp3", 4, minim );
+  B  = new Sampler( "samples/" + synthList[synth] + "/B.mp3", 4, minim );
 
 
   C.patch( out );
