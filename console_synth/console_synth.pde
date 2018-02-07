@@ -45,6 +45,8 @@ int count = 0;
 boolean playing = false;
 boolean started = false;
 
+boolean notePlaying = false;
+
 EditMode editMode = EditMode.C;;
 
 class Tick implements Instrument
@@ -56,18 +58,37 @@ class Tick implements Instrument
     }
     String info = str(count) + " : " + str(beat%4 + 1) + " : " + synthList[synth] + " : " + editMode + " : " + bpm ;
     toConsole(info);
-    if ( C_Row[beat] ) {C.stop(); C.trigger();} 
-    if ( Db_Row[beat] ) {Db.stop(); Db.trigger();} 
-    if ( D_Row[beat] ) {D.stop(); D.trigger();} 
-    if ( Eb_Row[beat] ) {Eb.stop(); Eb.trigger();} 
-    if ( E_Row[beat] ) {E.stop(); E.trigger();} 
-    if ( F_Row[beat] ) {F.stop(); F.trigger();} 
-    if ( Gb_Row[beat] ) {Gb.stop(); Gb.trigger();} 
-    if ( G_Row[beat] ) {G.stop(); G.trigger();} 
-    if ( Ab_Row[beat] ) {Ab.stop(); Ab.trigger();} 
-    if ( A_Row[beat] ) {A.stop(); A.trigger();} 
-    if ( Bb_Row[beat] ) {Bb.stop(); Bb.trigger();} 
-    if ( B_Row[beat] ) {B.stop(); B.trigger();} 
+    if(notePlaying){
+      stopAll();
+      notePlaying = false;
+    }
+    if ( C_Row[beat] ) {C.trigger(); notePlaying = true;} 
+    if ( Db_Row[beat] ) {Db.trigger(); notePlaying = true;} 
+    if ( D_Row[beat] ) {D.trigger(); notePlaying = true;} 
+    if ( Eb_Row[beat] ) {Eb.trigger(); notePlaying = true;} 
+    if ( E_Row[beat] ) {E.trigger(); notePlaying = true;} 
+    if ( F_Row[beat] ) {F.trigger(); notePlaying = true;} 
+    if ( Gb_Row[beat] ) {Gb.trigger(); notePlaying = true;} 
+    if ( G_Row[beat] ) {G.trigger(); notePlaying = true;} 
+    if ( Ab_Row[beat] ) {Ab.trigger(); notePlaying = true;} 
+    if ( A_Row[beat] ) {A.trigger(); notePlaying = true;} 
+    if ( Bb_Row[beat] ) {Bb.trigger(); notePlaying = true;} 
+    if ( B_Row[beat] ) {B.trigger(); notePlaying = true;} 
+  }
+  
+  void stopAll(){
+    C.stop();
+    Db.stop();
+    D.stop();
+    Eb.stop();
+    E.stop();
+    F.stop();
+    Gb.stop();
+    G.stop();
+    Ab.stop();
+    A.stop();
+    Bb.stop();
+    B.stop();
   }
   
   void noteOff()
