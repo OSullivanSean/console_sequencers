@@ -292,8 +292,10 @@ void draw(){
   text(fakeConsole, 20, 20, width-40, height-40);
   if(beat%4 == 0){
     fill(255, 0, 0);
-    rect(width - 80, 40, 40, 40);
+  } else {
+    fill(0, 255, 0);
   }
+  rect(width - 80, 40 + 40*beat, 40, 40);
 }
 
 void toConsole(String string){
